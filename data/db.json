@@ -1,0 +1,127 @@
+{
+  "customers": [
+    {
+      "id": "cust_42f012143eb9",
+      "name": "Smoke Rider",
+      "phone": "+911111111111",
+      "token": "abe0ae9980c3f73c5326c8d4b9edf09c",
+      "createdAt": 1788278970096
+    }
+  ],
+  "drivers": [
+    {
+      "id": "drv_6749bb45febc",
+      "name": "Amit Sharma",
+      "phone": "+919876543210",
+      "vehicleType": "car-economy",
+      "vehicleNo": "KA-01-AB-1234",
+      "token": "6dc11507ddf70950f5adc365e710f0a7",
+      "status": "idle",
+      "location": {
+        "lat": 12.9716,
+        "lng": 77.5946
+      },
+      "rating": 5,
+      "ratingCount": 0,
+      "ridesCompleted": 0,
+      "createdAt": 1788278599123,
+      "currentRideId": null
+    },
+    {
+      "id": "drv_cf10778db0b1",
+      "name": "Priya Verma",
+      "phone": "+919876543211",
+      "vehicleType": "car-economy",
+      "vehicleNo": "KA-01-AB-2345",
+      "token": "4eb331acc2e7361ebb519f78d37a6661",
+      "status": "idle",
+      "location": {
+        "lat": 12.9784,
+        "lng": 77.6408
+      },
+      "rating": 5,
+      "ratingCount": 0,
+      "ridesCompleted": 0,
+      "createdAt": 1788278599124,
+      "currentRideId": null
+    },
+    {
+      "id": "drv_564e2955c483",
+      "name": "Rajesh Kumar",
+      "phone": "+919876543212",
+      "vehicleType": "car-comfort",
+      "vehicleNo": "KA-01-AB-3456",
+      "token": "e61dab9f4c9c7f3f9d7fe7742261c431",
+      "status": "idle",
+      "location": {
+        "lat": 12.9352,
+        "lng": 77.6245
+      },
+      "rating": 5,
+      "ratingCount": 0,
+      "ridesCompleted": 0,
+      "createdAt": 1788278599124,
+      "currentRideId": null
+    },
+    {
+      "id": "drv_384ef7d06cab",
+      "name": "Suresh Rao",
+      "phone": "+919876543213",
+      "vehicleType": "auto",
+      "vehicleNo": "KA-01-AB-4567",
+      "token": "36fd0fbe136e8036cbe342f4404e7cad",
+      "status": "idle",
+      "location": {
+        "lat": 12.9698,
+        "lng": 77.75
+      },
+      "rating": 5,
+      "ratingCount": 0,
+      "ridesCompleted": 0,
+      "createdAt": 1788278599124,
+      "currentRideId": null
+    },
+    {
+      "id": "drv_1e2893d759e3",
+      "name": "Kiran Patel",
+      "phone": "+919876543214",
+      "vehicleType": "bike",
+      "vehicleNo": "KA-01-AB-5678",
+      "token": "868c46946ef034d8813b6d8c06f32a95",
+      "status": "idle",
+      "location": {
+        "lat": 12.925,
+        "lng": 77.5938
+      },
+      "rating": 5,
+      "ratingCount": 0,
+      "ridesCompleted": 0,
+      "createdAt": 1788278599125,
+      "currentRideId": null
+    }
+  ],
+  "rides": [
+    {
+      "id": "ride_d0ebd96a3fc7",
+      "customerId": "cust_42f012143eb9",
+      "driverId": null,
+      "vehicleType": "car-economy",
+      "pickup": {
+        "label": "Airport",
+        "lat": 13.1986,
+        "lng": 77.7066
+      },
+      "dropoff": {
+        "label": "MG Road",
+        "lat": 12.9758,
+        "lng": 77.6065
+      },
+      "distanceKm": 27.04,
+      "durationMin": 111,
+      "fareMicroAlgo": 150000,
+      "state": "CREATED",
+      "createdAt": 1788278970170,
+      "payment": null
+    }
+  ]
+}
