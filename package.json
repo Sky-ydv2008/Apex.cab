@@ -1,0 +1,22 @@
+{
+  "name": "apex-cab",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Apex Cab — Uber-style ride booking (car / auto / bike) on the Algorand blockchain with live x402 payments through the GoPlausible facilitator on Algorand Testnet.",
+  "workspaces": [
+    "server",
+    "apps/customer",
+    "apps/driver"
+  ],
+  "scripts": {
+    "dev:server": "npm run dev -w @apex/server",
+    "dev:customer": "npm run dev -w @apex/customer",
+    "dev:driver": "npm run dev -w @apex/driver",
+    "build": "npm run build -w @apex/customer && npm run build -w @apex/driver",
+    "start": "npm run start -w @apex/server",
+    "demo:x402": "npm run demo:x402 -w @apex/server"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
