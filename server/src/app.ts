@@ -24,7 +24,18 @@ export function createApp(): express.Express {
 
   app.use(
     helmet({
-      contentSecurityPolicy: false, // JSON API only; CSP applied by the static apps
+      // CSP for the served rider/driver apps (JSON API responses are unaffected).
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'"],
+          styleSrc: ["'self'", "'unsafe-inline'"],
+          imgSrc: ["'self'", "data:", "https://tile.openstreetmap.org"],
+          connectSrc: ["'self'"],
+          frameAncestors: ["'none'"],
+          objectSrc: ["'none'"],
+        },
+      },
       crossOriginResourcePolicy: { policy: "cross-origin" },
     }),
   );
@@ -111,9 +122,16 @@ export function createApp(): express.Express {
     res.status(404).json({ error: "not found" });
   });
 
-  app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+  app.use((err: Error & { type?: string; status?: number }, _req: Request, res: Response, _next: NextFunction) => {
+    // Malformed JSON body → 400, never 500
+    if (err.type === "entity.parse.failed" || err.type === "entity.too.large") {
+      res.status(400).json({ error: "invalid request body" });
+      return;
+    }
     console.error("[api error]", err);
-    res.status(500).json({ error: err.message || "internal error" });
+    res.status(err.status && err.status < 500 ? err.status : 500).json({
+      error: err.status && err.status < 500 ? err.message : "internal error",
+    });
   });
 
   return app;
