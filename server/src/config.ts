@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -24,9 +25,19 @@ export const config = {
   payerPrivateKey: process.env.PAYER_PRIVATE_KEY || "",
   /** Algod endpoint used for balance checks / txn lookups. */
   algodUrl: process.env.ALGOD_URL || "https://testnet-api.algonode.cloud",
-  /** AlgoKit testnet dispenser (funds demo payer + merchant). */
+  /** AlgoKit Testnet Dispenser API (JWT-gated; token from `algokit dispenser login --ci`). */
   dispenserUrl:
-    process.env.DISPENSER_URL || "https://dispenser.testnet.algokit.io",
+    process.env.DISPENSER_URL || "https://api.dispenser.algorandfoundation.tools",
+  dispenserToken:
+    process.env.DISPENSER_TOKEN ||
+    (() => {
+      // Fallback: token saved by `algokit dispenser login --ci` (data/ci_token.txt)
+      try {
+        return fs.readFileSync(path.resolve(here, "../../data/ci_token.txt"), "utf8").trim();
+      } catch {
+        return "";
+      }
+    })(),
   /** Allowed browser origins for CORS. */
   corsOrigins: (process.env.CORS_ORIGINS || "http://localhost:5173,http://localhost:5174")
     .split(",")

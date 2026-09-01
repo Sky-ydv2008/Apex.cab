@@ -180,7 +180,18 @@ Seed drivers are created on startup (5 drivers covering cars, auto, bike — see
 
 **Demo rider:** any phone, e.g. `+919876543210`.
 
-> The x402 payment needs the demo payer wallet funded with Testnet ALGO (the demo's "Fund demo payer" button / `POST /api/demo/fund` does this via the AlgoKit dispenser; it can also be funded manually at <https://lora.algokit.io/testnet/fund>).
+> The x402 payment needs the demo payer wallet funded with Testnet ALGO. The
+> app funds it through the AlgoKit Testnet Dispenser API (`POST /api/demo/fund`);
+> that API is JWT-gated, so first obtain a 30-day token once:
+>
+> ```bash
+> pip install algokit
+> algokit dispenser login --ci -o file -f data/ci_token.txt   # approve in the browser
+> ```
+>
+> The server auto-reads `data/ci_token.txt` (or use `DISPENSER_TOKEN` env), then
+> "Fund demo payer" in the rider app (or `npm run demo:x402`) works out of the box.
+> Manual alternative: fund the payer address at <https://lora.algokit.io/testnet/fund>.
 
 ---
 

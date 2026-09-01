@@ -27,19 +27,36 @@ export async function getAccountInfo(
   };
 }
 
-/** Funds a Testnet account with ALGO via the AlgoKit dispenser API. */
+/**
+ * Funds a Testnet account with ALGO via the AlgoKit Testnet Dispenser API
+ * (https://api.dispenser.algorandfoundation.tools, JWT-gated).
+ * Token: set DISPENSER_TOKEN env, or obtain with `algokit dispenser login --ci`.
+ */
 export async function fundFromDispenser(
   address: string,
   amountMicroAlgo?: number,
 ): Promise<{ txId: string }> {
-  const body: Record<string, unknown> = { receiver: address, assetID: 0 };
+  const token = config.dispenserToken;
+  if (!token) {
+    throw new Error(
+      "dispenser token missing — set DISPENSER_TOKEN or run `algokit dispenser login --ci`",
+    );
+  }
+  const body: Record<string, unknown> = { address };
+  // The API takes the amount in microALGO (asset units).
   if (amountMicroAlgo) body.amount = amountMicroAlgo;
-  const res = await fetch(`${config.dispenserUrl}/funds`, {
+  const res = await fetch(`${config.dispenserUrl}/fund/0`, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      authorization: `Bearer ${token}`,
+    },
     body: JSON.stringify(body),
   });
-  const data = (await res.json().catch(() => ({}))) as { txId?: string; message?: string };
+  const data = (await res.json().catch(() => ({}))) as {
+    txId?: string;
+    message?: string;
+  };
   if (!res.ok || !data.txId) {
     throw new Error(`dispenser funding failed (${res.status}): ${JSON.stringify(data)}`);
   }
